@@ -29,12 +29,17 @@ const BeeIcon = ({ className = "w-6 h-6" }) => (
   </svg>
 );
 
+interface PriceOption {
+  size: string;      
+  price: string;     
+}
+
 interface Product {
   id: number;
   name: string;
   description: string;
   longDescription: string;
-  price: string;
+  prices: PriceOption[];  
   image: string;
 }
 
@@ -55,7 +60,7 @@ const familyMembers = [
   {
     name: "Ivan",
     role: "Deda & Desna ruka",
-    description: "Iskustvo koje se ne kupuje. Ivan pomaže tati na pčelinjaku, uvek je tu kada je potrebna dodatna ruka i mudrost u radu sa košnicama.",
+    description: "Iskustvo koje se ne kupuje. Ivan pomaže Mihajlu na pčelinjaku, uvek je tu kada je potrebna dodatna ruka i mudrost u radu sa košnicama.",
     icon: <Users className="w-6 h-6 text-amber-600" />
   },
   {
@@ -72,7 +77,10 @@ const products: Product[] = [
     name: "Livadski med",
     description: "Bogat ukus prolećnih i letnjih livada. Sadrži nektar raznovrsnog lekovitog bilja.",
     longDescription: "Naš livadski med je prava riznica zdravlja. Sakupljan na čistim pašnjacima, on predstavlja mešavinu nektara desetina različitih cvetova, što mu daje jedinstvenu aromu i visoku nutritivnu vrednost. Idealan je za jačanje imuniteta i svakodnevnu upotrebu.",
-    price: "800 RSD",
+    prices: [
+      { size: "400g", price: "400 RSD" },
+      { size: "1kg", price: "800 RSD" }
+    ],    
     image: "public/images/suncokretov_med.webp"
   },
   {
@@ -80,7 +88,10 @@ const products: Product[] = [
     name: "Bagremov med",
     description: "Svetla boja i blag, prijatan ukus. Najtraženiji med zbog svoje nežne arome.",
     longDescription: "Bagremov med je poznat po svojoj prozirnosti i činjenici da ostaje u tečnom stanju veoma dugo. Zbog svog blagog ukusa, omiljen je deci. Deluje umirujuće na organizam i preporučuje se kod nesanice i stresa.",
-    price: "1500 RSD",
+    prices: [
+      { size: "400g", price: "600 RSD" },      
+      { size: "1kg", price: "1200 RSD" }
+    ],    
     image: "images/bagremov_med.webp"
   },
   {
@@ -88,7 +99,10 @@ const products: Product[] = [
     name: "Suncokretov med",
     description: "Prepoznatljive žute boje, brzo se kristališe u prelepe sitne kristale.",
     longDescription: "Suncokretov med je izuzetno zdrav zbog visokog sadržaja polena i minerala. Ima specifičan ukus i brzo se kristališe, što je siguran znak njegove čistoće i kvaliteta. Odličan je za srce i disajne puteve.",
-    price: "800 RSD",
+    prices: [
+      { size: "400g", price: "400 RSD" },
+      { size: "1kg", price: "800 RSD" }
+    ],    
     image: "images/suncokretov_med.webp"
   },
   {
@@ -96,7 +110,10 @@ const products: Product[] = [
     name: "Med od uljane repice",
     description: "Kremast med bele boje, izuzetno bogat polenom.",
     longDescription: "Med od uljane repice je prvi prolećni med. Zbog svoje sitnozrnaste kristalizacije, tekstura mu je poput putera. Izuzetno je blagotvoran za čišćenje jetre i regulisanje holesterola.",
-    price: "800 RSD",
+    prices: [
+      { size: "400g", price: "400 RSD" },
+      { size: "1kg", price: "800 RSD" }
+    ],
     image: "images/med_od_uljane_repice.webp"
   },
   {
@@ -104,7 +121,11 @@ const products: Product[] = [
     name: "Propolis kapi",
     description: "Prirodni antibiotik iz pčelinje košnice. Jaka zaštita za vaš organizam.",
     longDescription: "Naš propolis je 30% rastvor čistog pčelinjeg propolisa u alkoholu. Deluje protiv virusa, bakterija i gljivica. Nezaobilazan u kućnoj apoteci za dezinfekciju grla i jačanje odbrambene moći organizma.",
-    price: "0 RSD",
+    prices: [
+      { size: "kapi 10ml", price: "200 RSD" },
+      { size: "kapi 20ml", price: "400 RSD" },
+      { size: "sprej 50ml", price: "450 RSD" }
+    ],
     image: "images/propolisi.webp"
   },
   {
@@ -112,63 +133,85 @@ const products: Product[] = [
     name: "Pčelinji Polen",
     description: "Super-hrana direktno iz cveta. Bomba vitamina i minerala.",
     longDescription: "Polen sakupljen od strane naših pčela je izvor svih esencijalnih amino-kiselina. Preporučuje se sportistima, đacima i svima koji su pod pojačanim fizičkim i mentalnim naporom.",
-    price: "0 RSD",
-    image: ""
+    prices: [
+      { size: "100g", price: "200 RSD" },
+      { size: "200g", price: "400 RSD" }
+    ],
+    image: "images/polen.jpeg"
   },
   {
     id: 7,
     name: "Pčelinji Vosak",
     description: "Potpuno prirodan vosak za izradu sveća ili kozmetike.",
     longDescription: "Čist pčelinji vosak iz naših košnica. Bez ikakvih dodataka, miriše na med i pčele. Idealan za izradu prirodnih melema ili mirisnih sveća.",
-    price: "0 RSD",
-    image: ""
+    prices: [
+      { size: "komad", price: "200 RSD" }
+    ],    
+    image: "images/vosak.jpeg"
   },
   {
     id: 8,
     name: "Medovača",
     description: "Domaća rakija oplemenjena našim najboljim medom.",
     longDescription: "Naša medovača se pravi po starom porodičnom receptu. Spoj vrhunske voćne rakije i meda daje piće koje klizi niz grlo i ostavlja topao trag zdravlja.",
-    price: "1000000 RSD",
-    image: ""
+    prices: [
+      { size: "0.2l", price: "400 RSD" },
+      { size: "0.5l", price: "800 RSD" }
+    ],    
+    image: "images/medovaca.jpeg"
   },
   {
     id: 9,
-    name: "Mix: Polen-Propolis-Med",
+    name: "Mix: Polen-propolis-med",
     description: "Klasičan imuno-mix za svakodnevnu upotrebu.",
     longDescription: "Savršeno izbalansiran odnos meda, polena i propolisa. Jedna kašika ujutru je sve što vam treba za energičan početak dana i jak imunitet.",
-    price: "0 RSD",
+    prices: [
+      { size: "400g", price: "700 RSD" },
+      { size: "1kg", price: "1500 RSD" }
+    ],    
     image: "images/miks_med_polen_propolis.jpg"
   },
   {
     id: 10,
-    name: "Mix: Med-Polen-Propolis-Kopriva",
+    name: "Mix: Med-polen-propolis-kopriva",
     description: "Idealan za krvnu sliku i gvožđe.",
     longDescription: "Ovaj miks smo obogatili semenom koprive, što ga čini izuzetnim saveznikom u borbi protiv anemije. Pomaže kod umora i vraća vitalnost organizmu.",
-    price: "0 RSD",
+    prices: [
+      { size: "400g", price: "700 RSD" },
+      { size: "1kg", price: "1500 RSD" }
+    ],    
     image: "images/miks_kopriva.jpg"
   },
   {
     id: 11,
-    name: "Mix: Med-Polen-Propolis-Golica",
+    name: "Mix: Med-polen-propolis-golica",
     description: "Podrška za prostatu i muško zdravlje.",
     longDescription: "Dodatak mlevenog semena golice (bundevino seme) čini ovaj miks specifičnim. Bogat je cinkom i mineralima važnim za zdravlje prostate i opšte muško zdravlje.",
-    price: "0 RSD",
+    prices: [
+      { size: "400g", price: "700 RSD" },
+      { size: "1kg", price: "1500 RSD" }
+    ],    
     image: "images/miks_med_polen_propolis_golica.jpg"
   },
   {
     id: 12,
-    name: "Mix: Limun-Đumbir-Med",
+    name: "Mix: Limun-đumbir-med",
     description: "Osvežavajući mix protiv prehlade i virusa.",
     longDescription: "Kombinacija limuna, đumbira, meda, polena i propolisa. Ljuti đumbir i kiselkasti limun u medu stvaraju moćan eliksir za grlo i disajne puteve.",
-    price: "0 RSD",
+    prices: [
+      { size: "400g", price: "700 RSD" },
+      { size: "1kg", price: "1500 RSD" }
+    ],    
     image: "images/med_limun_djumbir_miks.webp"
   },
   {
     id: 13,
-    name: "Poklon Aranžmani",
+    name: "Poklon aranžmani",
     description: "Personalizovane korpice za sve prilike.",
     longDescription: "Pravimo aranžmane po vašoj želji! Bilo da je u pitanju Slava, rođendan, Božić ili Uskrs, mi spajamo naše proizvode u prelepe dekorisane korpice sa natpisima po vašoj želji.",
-    price: "Po dogovoru",
+    prices: [
+      { size: "", price: "po dogovoru" }
+    ],    
     image: "images/aranzman.jpg"
   }
 ];
@@ -242,7 +285,10 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => (
     <div className="relative h-48 overflow-hidden">
       <img src={product.image} alt={product.name} className="w-full h-full object-cover transform hover:scale-110 transition duration-500" />
       <div className="absolute top-4 right-4 bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-        {product.price}
+        {product.prices.length > 1 
+          ? `od ${product.prices[0].price}` 
+          : product.prices[0].price
+        }
       </div>
     </div>
     <div className="p-6 flex flex-col flex-grow">
@@ -286,8 +332,21 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => (
         </div>
         <div className="md:w-1/2 p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h2>
-          <p className="text-amber-600 font-bold text-xl mb-4">{product.price}</p>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <div className="mb-6">
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Dostupne opcije:</p>
+            <div className="flex flex-wrap gap-2">
+              {[...product.prices].map((priceOption, index) => (
+                <div 
+                  key={index}
+                  className="bg-amber-50 border-2 border-amber-200 rounded-xl px-4 py-2 flex items-center gap-2"
+                >
+                  <span className="text-amber-800 font-bold">{priceOption.size}</span>
+                  <span className="text-gray-400">•</span>
+                  <span className="text-amber-600 font-bold">{priceOption.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>          <p className="text-gray-600 mb-6 leading-relaxed">
             {product.longDescription}
           </p>
           <div className="flex flex-col gap-3">
@@ -339,7 +398,7 @@ export const App = () => {
               Tradicija od poverenja
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
-              Pčelarsko Gazdinstvo <br />
+              Pčelarsko gazdinstvo <br />
               <span className="bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
                 Letvenčuk
               </span>
@@ -353,13 +412,13 @@ export const App = () => {
                 href="#proizvodi" 
                 className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full text-lg font-bold transition transform hover:scale-105 shadow-xl shadow-amber-200"
               >
-                Istraži Proizvode
+                Istraži proizvode
               </a>
               <a 
                 href="#kontakt" 
                 className="bg-white border-2 border-amber-600 text-amber-600 px-8 py-4 rounded-full text-lg font-bold transition hover:bg-amber-50 transform hover:scale-105"
               >
-                Kontaktiraj Nas
+                Kontaktiraj nas
               </a>
             </div>
           </motion.div>
@@ -370,7 +429,7 @@ export const App = () => {
       <section id="porodica" className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Upoznajte Našu Porodicu</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Upoznajte našu porodicu</h2>
             <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Naše pčelarenje je porodični posao u kojem svako ima svoju ulogu. 
@@ -404,7 +463,7 @@ export const App = () => {
       <section id="proizvodi" className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Naši Proizvodi</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Naši proizvodi</h2>
             <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Od čistog meda do specijalnih prirodnih mikseva za vaš imunitet. 
@@ -428,7 +487,7 @@ export const App = () => {
       <section id="galerija" className="py-24 px-4 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Život Na Pčelinjaku</h2>
+            <h2 className="text-4xl font-bold mb-4">Život na pčelinjaku</h2>
             <div className="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-6"></div>
             <p className="text-gray-400 max-w-2xl mx-auto">
               Deo naše atmosfere sa pčelinjaka, festivala i mesta gde naš med pronalazi svoj novi dom.
@@ -458,7 +517,7 @@ export const App = () => {
           <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-amber-100">
             {/* Kontakt Informacije */}
             <div className="lg:w-2/5 bg-amber-600 p-12 text-white">
-              <h2 className="text-4xl font-bold mb-8">Kontaktirajte Nas</h2>
+              <h2 className="text-4xl font-bold mb-8">Kontaktirajte nas</h2>
               <p className="text-amber-100 mb-12 text-lg">
                 Imate pitanja ili želite da naručite naše proizvode? 
                 Tu smo za vas svakog dana.
@@ -556,7 +615,7 @@ export const App = () => {
                   type="submit"
                   className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-5 rounded-xl transition transform hover:scale-[1.02] flex items-center justify-center gap-3 shadow-xl shadow-amber-100"
                 >
-                  <Send size={20} /> Pošalji Pitanje
+                  <Send size={20} /> Pošalji pitanje
                 </button>
                 <p className="text-xs text-gray-500 text-center mt-4">
                   Vaša poruka će biti poslata na: nik.letvencuk@gmail.com
@@ -577,7 +636,7 @@ export const App = () => {
             </span>
           </div>
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Pčelarsko Gazdinstvo Letvenčuk. Sva prava zadržana.
+            © {new Date().getFullYear()} Pčelarsko gazdinstvo Letvenčuk. Sva prava zadržana.
           </p>
           <div className="flex justify-center gap-6 mt-6">
             <a href="#" className="text-gray-400 hover:text-amber-600 transition">Početna</a>
